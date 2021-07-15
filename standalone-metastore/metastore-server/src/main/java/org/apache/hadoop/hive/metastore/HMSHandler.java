@@ -1342,7 +1342,7 @@ public class HMSHandler extends FacebookBase implements IHMSHandler {
           madeExternalDir = true;
         }
       } else {
-        if (!isInTest && dbMgdPath != null) {
+        if (dbMgdPath != null) {
           try {
             // Since this may be done as random user (if doAs=true) he may not have access
             // to the managed directory. We run this as an admin user
@@ -1360,7 +1360,7 @@ public class HMSHandler extends FacebookBase implements IHMSHandler {
             });
             if (madeManagedDir) {
               LOG.info("Created database path in managed directory " + dbMgdPath);
-            } else {
+            } else if (!isInTest || !isDbReplicationTarget(db)) { // Hive replication tests doesn't drop the db after each test
               throw new MetaException(
                   "Unable to create database managed directory " + dbMgdPath + ", failed to create database " + db.getName());
             }

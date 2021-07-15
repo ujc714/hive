@@ -710,7 +710,6 @@ public class TestReplicationScenariosExclusiveReplica extends BaseReplicationAcr
               replicatedDbName.toLowerCase()  + ".db").toUri().getPath());
     } else {
       Assert.assertNotEquals(managedCustLocOnSrc,  null);
-      Assert.assertEquals(replDatabase.getManagedLocationUri(),  null);
       String externalCustLocOnTgt = new Path(replDatabase.getLocationUri()).toUri().getPath();
       Assert.assertNotEquals(externalCustLocOnSrc,  externalCustLocOnTgt);
       Assert.assertEquals(externalCustLocOnTgt,  new Path(replica.externalTableWarehouseRoot,
